@@ -133,16 +133,16 @@ public class LotteryGameApp{
   jackpotsWon=myLotteryGame.getJackpotsWon();
   jackpotsString="";
   if (jackpotsWon==1){
-    jackpotsString="you won "+jackpotsWon+" jackpot.";
+    jackpotsString="you won<span class=highlight> "+jackpotsWon+"</span> jackpot.";
   } else {
-    jackpotsString="you won "+jackpotsWon+" jackpots.";
+    jackpotsString="you won<span class=highlight> "+jackpotsWon+"</span> jackpots.";
   }
   for (int i=0; i<numberOfGamesPlayed;i++){
     for (int j=0;j<history[i].length;j++)
     historyResultsStringBuffer.append("Game "+(i+1)+ ", line "+(j+1)+": you matched "+history[i][j] + ". "+myLotteryGame.whatYouWon(history[i][j])+"<br>");
   }
   historyResultsString=historyResultsStringBuffer.toString();
-  JOptionPane.showMessageDialog(null, "<html>"+historyResultsString+"<br>"+"Your total euro winnings are "+totalWinnings+" and "+jackpotsString+"</html>");
+  JOptionPane.showMessageDialog(null, "<html><style>.highlight{font-weight: bold;color: green;}</style>"+historyResultsString+"<br>"+"Your total euro winnings are<span class=highlight> "+totalWinnings+"</span> and "+jackpotsString+"</html>");
   }
   //A helper method that converts a string to an int of possible, or else returns an error
   private static int stringToInt(String string){
