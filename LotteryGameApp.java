@@ -59,11 +59,11 @@ public class LotteryGameApp{
     */
     numberOfLines=-1;
     while(numberOfLines==-1){
-      numberOfLinesString=JOptionPane.showInputDialog(null, "How many lines would you like to play? 1, 2 or 3:");
+      numberOfLinesString=JOptionPane.showInputDialog(null, "How many lines would you like to play? 1, 2 or 3:","Choose your number of Lottery lines", JOptionPane.INFORMATION_MESSAGE);
       numberOfLines=stringToInt(numberOfLinesString);
       if(numberOfLines!=-1){
         if (numberOfLines<1 || numberOfLines>MAX_LINES){
-          JOptionPane.showMessageDialog(null, "Please enter a valid number of lines. 1, 2 or 3");
+          JOptionPane.showMessageDialog(null, "Please enter a valid number of lines. 1, 2 or 3", "Choose your number of Lottery lines", JOptionPane.INFORMATION_MESSAGE);
           numberOfLines=-1;
         }
       }
@@ -78,20 +78,20 @@ public class LotteryGameApp{
       for (int j=0;j<NUMBERS_PER_LINE;j++){
         playerLines[i][j]=-1;
         while(playerLines[i][j]==-1){
-          playersChoice=JOptionPane.showInputDialog(null, "Line: "+(i+1)+", please enter your "+ordinalStringFromInt(j+1)+" number.");
+          playersChoice=JOptionPane.showInputDialog(null, "Line: "+(i+1)+", please enter your "+ordinalStringFromInt(j+1)+" number.","Pick your numbers", JOptionPane.INFORMATION_MESSAGE);
           playerLines[i][j]=stringToInt(playersChoice);
 
             //Checks if selected numbers is already in the array
             for (int k=0;k<j;k++){
                 if (playerLines[i][j]==playerLines[i][k]){
-                  JOptionPane.showMessageDialog(null, "You have already selected that number for this line.");
+                  JOptionPane.showMessageDialog(null, "You have already selected that number for this line.", "Pick your numbers",JOptionPane.INFORMATION_MESSAGE);
                   playerLines[i][j]=-1;
                 }
             }
             //Checks that selected numbers is within the valid range
             if(playerLines[i][j]!=-1){
               if(playerLines[i][j]<1 || playerLines[i][j]>TOTAL_NUMBERS){
-                JOptionPane.showMessageDialog(null, "Please only select numbers between 1 and 40");
+                JOptionPane.showMessageDialog(null, "Please only select numbers between 1 and 40","Pick your numbers",JOptionPane.INFORMATION_MESSAGE);
                 playerLines[i][j]=-1;
               }
             }
@@ -110,15 +110,15 @@ public class LotteryGameApp{
         gameResultsStringBuffer.append("Line "+(i+1)+", you matched "+linesPlayedAndWon[i] + ". "+myLotteryGame.whatYouWon(linesPlayedAndWon[i])+"<br>");
       }
       gameResultsString=gameResultsStringBuffer.toString();
-      JOptionPane.showMessageDialog(null,"<html>"+gameResultsString+"</html>");
+      JOptionPane.showMessageDialog(null,"<html>"+gameResultsString+"</html>","Game Results", JOptionPane.INFORMATION_MESSAGE);
       //Clear the StringBuffer in case the user plays again
       gameResultsStringBuffer.delete(0, gameResultsStringBuffer.length());
 
-      playAgain=JOptionPane.showInputDialog(null, "Would you like to play again?");
+      playAgain=JOptionPane.showInputDialog(null, "Would you like to play again?", "Play again?", JOptionPane.INFORMATION_MESSAGE);
 
     //Keep asking if they would like to play again until getting a valid answer
     while (!"no".equalsIgnoreCase(playAgain) && !"yes".equalsIgnoreCase(playAgain)){
-      playAgain=JOptionPane.showInputDialog(null, "Please enter Yes or No. Would you like to play again?");
+      playAgain=JOptionPane.showInputDialog(null, "Please enter Yes or No. Would you like to play again?", "Play again?", JOptionPane.INFORMATION_MESSAGE);
     }
     if (playAgain.equalsIgnoreCase("no")){
         isPlayingAgain=false;
@@ -140,10 +140,16 @@ public class LotteryGameApp{
   for (int i=0; i<numberOfGamesPlayed;i++){
     for (int j=0;j<history[i].length;j++)
     historyResultsStringBuffer.append("Game "+(i+1)+ ", line "+(j+1)+": you matched "+history[i][j] + ". "+myLotteryGame.whatYouWon(history[i][j])+"<br>");
+
   }
   historyResultsString=historyResultsStringBuffer.toString();
-  JOptionPane.showMessageDialog(null, "<html><style>.highlight{font-weight: bold;color: green;}</style>"+historyResultsString+"<br>"+"Your total euro winnings are<span class=highlight> "+totalWinnings+"</span> and "+jackpotsString+"</html>");
+  String openingHTMLAndCss="<html><head><style>p{font: 13pt Lucida Grande;}.highlight{font: 15pt Lucida Grande;font-weight:bold; color: green;}</style></head><body><p>";
+  String closingHTML="</p></body></html>";
+
+  JOptionPane.showMessageDialog(null,openingHTMLAndCss+historyResultsString+"<br>"+"Your total euro winnings are<span class=highlight> "+totalWinnings+"</span> and "+jackpotsString+closingHTML, "Overall Results",JOptionPane.INFORMATION_MESSAGE);
+
   }
+
   //A helper method that converts a string to an int of possible, or else returns an error
   private static int stringToInt(String string){
     try{
